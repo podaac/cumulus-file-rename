@@ -1,4 +1,5 @@
 import re
+import os
 import boto3
 from cumulus_logger import CumulusLogger
 from cumulus_process import Process
@@ -16,11 +17,29 @@ class FileRename(Process):
         self.logger = logger
         self.logger.debug('{} Entered __init__', self.className)
 
+    def replace_last_occurance(self, raw_str, from_substr, repl_substr,
+                               is_ignore_case = False):
+        '''
+        This function replace the last occurance of the substring (from_substr)
+        to a new substr (repl_substr) from the raw string
+        :param raw_string:  the original string
+        :param from_substr: the substring to be replace
+        :param repl_substr: the substring to be replaced to
+        :param repl_substr: the substring to be replaced to
+        :param is_ignore_case: True: ignore the case when searching the from_substr
+        :return:
+        '''
+        if is_ignore_case:
+            index =  raw_str.lower().rfind(from_substr.lower())
+        else:
+            index = raw_str.rfind(from_substr) #index of the last occurrence of the substring
+        return raw_str[:index] + repl_substr + raw_str[index + len(from_substr):]
+
     def replace_prevalidate(self, file):
-        file['name'] = re.sub(self.strReplaceToEmpty, '',
-                              file.get('name'), flags=re.IGNORECASE)
-        file['filename'] = re.sub(self.strReplaceToEmpty, '', file.get(
-            'filename'), flags=re.IGNORECASE)
+        file['fileName'] = self.replace_last_occurance(file['fileName'],self.strReplaceToEmpty,
+                                                       '', True)
+        file['key'] = self.replace_last_occurance(file['key'], self.strReplaceToEmpty,
+                                                  '', True)
         return file
 
     def replacePresetStringToEmpty(self, str):
@@ -30,9 +49,10 @@ class FileRename(Process):
         s3Resource = boto3.resource('s3')
         s3Client = boto3.client('s3')
         bucket = file['bucket']
-        sourceKey = '{}/{}'.format(file['fileStagingDir'], file['name'])
-        destinationKey = '{}/{}'.format(file['fileStagingDir'],
-                                        self.replacePresetStringToEmpty(file['name']))
+        sourceKey = file['key']
+        # path = sourceKey.replace(file['fileName'], '')
+        path = self.replace_last_occurance(sourceKey, file['fileName'], '')
+        destinationKey = os.path.join(path, self.replacePresetStringToEmpty(file['fileName']))
         copy_source = {'Bucket': bucket, 'Key': sourceKey}
         self.logger.info('{} Trying to make a copy. bucket:{} source:{} destination:{}'.format(
             self.className, bucket, sourceKey, destinationKey))
@@ -56,7 +76,7 @@ class FileRename(Process):
                 files = granule['files']
                 for file in files:
                     self.logger.info("{} About to rename file: {}".format(
-                        self.className, file['name']))
+                        self.className, file['fileName']))
                     self.renameFileOnS3(file)
                     new_file = self.replace_prevalidate(file)
                     output_files.append(new_file)
