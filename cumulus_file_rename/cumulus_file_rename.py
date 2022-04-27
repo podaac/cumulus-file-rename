@@ -19,7 +19,6 @@ def replace_last_occurrence(raw_str, from_substr, repl_substr,
     :param raw_str:  the original string
     :param from_substr: the substring to be replace
     :param repl_substr: the substring to be replaced to
-    :param repl_substr: the substring to be replaced to
     :param is_ignore_case: True: ignore the case when searching the from_substr
     :return:
     """
