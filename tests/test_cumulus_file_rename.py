@@ -1,5 +1,5 @@
 from cumulus_file_rename import __version__
-from cumulus_file_rename.cumulus_file_rename import FileRename
+from cumulus_file_rename.cumulus_file_rename import FileRename, replace_last_occurrence
 from unittest.mock import MagicMock
 
 
@@ -60,7 +60,7 @@ def test_version():
 def test_file_rename():
     event = test_arguments
     context = {}
-    FileRename.renameFileOnS3 = MagicMock(return_value=True)
+    FileRename.rename_file_on_s3 = MagicMock(return_value=True)
     process = FileRename(**event)
     output = process.process()
     assert output['output_files'][0]['fileName'].find('_prevalidated') == -1
@@ -72,15 +72,15 @@ def test_replace_last_occurance():
     context = {}
     process = FileRename(**event)
     # test last occurance is at the trailing
-    output = process.replace_last_occurance(
+    output = replace_last_occurrence(
         'aabbccddaa', 'aa', 'mm')
     assert output == 'aabbccddmm'
     # test last occurance is at the middle
-    output = process.replace_last_occurance(
+    output = replace_last_occurrence(
         'aabbccddaaee', 'aa', 'mm')
     assert output == 'aabbccddmmee'
     # test the ignore case
-    output = process.replace_last_occurance(
+    output = replace_last_occurrence(
         'aabbccddAaee', 'aa', 'mm', True)
     assert output == 'aabbccddmmee'
 
@@ -89,7 +89,7 @@ def test_replace_prevalidate():
     event = test_arguments
     context = {}
     process = FileRename(**event)
-    process.strReplaceToEmpty = '_prevalidated'
+    process.str_replace_to_empty = '_prevalidated'
     output = process.replace_prevalidate(
         test_arguments['input']['granules'][0]['files'][0])
     assert output['fileName'].find('_prevalidated') == -1
@@ -99,6 +99,6 @@ def test_replace_prevalidate():
 def test_replacePresetStringToEmpty():
     event = test_arguments
     process = FileRename(**event)
-    process.strReplaceToEmpty = '_prevalidated'
-    output = process.replacePresetStringToEmpty('This is not_prevalidated')
+    process.str_replace_to_empty = '_prevalidated'
+    output = process.replace_preset_str_2_empty('This is not_prevalidated')
     assert output.find('_prevalidated') == -1

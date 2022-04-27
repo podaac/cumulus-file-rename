@@ -72,8 +72,28 @@ jobs:
           poetry version ${CURRENT_VERSION%%-rc.*}
           echo "software_version=$(poetry version | awk '{print $2}')" >> $GITHUB_ENV
           echo "venue=ops" >> $GITHUB_ENV
-      - name: Install cumulus-passthrough-lambda
+      - name: Install cumulus-file-rename
         run: poetry install
+
+      - name: Test and coverage
+          run: poetry run pytest --cov cumulus_file_rename tests -v
+
+      - name: pyLint & flake8
+          run: |
+            poetry run pylint --exit-zero             cumulus_file_rename
+            poetry run flake8 --ignore=E501,W503,W504 cumulus_file_rename
+
+      - name: Run Snyk on Python
+        uses: snyk/actions/python-3.8@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: monitor
+          args: >
+            -d
+            --org=${{ secrets.SNYK_ORG_ID }}
+            --project-name=${{ github.repository }}
+
       - name: Commit Version Bump
         # If building develop, a release branch, or main then we commit the version bump back to the repo
         if: |
