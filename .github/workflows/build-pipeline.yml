@@ -76,12 +76,12 @@ jobs:
         run: poetry install
 
       - name: Test and coverage
-          run: poetry run pytest --cov cumulus_file_rename tests -v
+        run: poetry run pytest --cov cumulus_file_rename tests -v
 
       - name: pyLint & flake8
-          run: |
-            poetry run pylint --exit-zero             cumulus_file_rename
-            poetry run flake8 --ignore=E501,W503,W504 cumulus_file_rename
+        run: |
+          poetry run pylint --exit-zero             cumulus_file_rename
+          poetry run flake8 --ignore=E501,W503,W504 cumulus_file_rename
 
       - name: Run Snyk on Python
         uses: snyk/actions/python-3.8@master
