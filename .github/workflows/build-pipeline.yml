@@ -20,10 +20,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
         with:
-          python-version: 3.6
+          python-version: 3.8
       - name: Install Poetry
         uses: abatilo/actions-poetry@v2.0.0
         with:
@@ -111,9 +111,13 @@ jobs:
           github.ref == 'refs/heads/develop' ||
           github.ref == 'refs/heads/main'    ||
           startsWith(github.ref, 'refs/heads/release')
-        with:
-          tag: ${{ env.software_version }}
-          message: "Version ${{ env.software_version }}"
+        run: |
+          tag=${{ env.software_version }}
+          message="Version ${{ env.software_version }}"
+          git config user.name "${GITHUB_ACTOR}"
+          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          git tag -a "${tag}" -m "${message}"
+          git push origin "${tag}"
       - name: Build Python Lambda Artifact
         run: sh ./build.sh
       - name: Prepare Artifacts
