@@ -106,7 +106,6 @@ jobs:
           git commit -am "/version ${{ env.software_version }}"
           git push
       - name: Push Tag
-        uses: actions-ecosystem/action-push-tag@v1
         if: |
           github.ref == 'refs/heads/develop' ||
           github.ref == 'refs/heads/main'    ||
