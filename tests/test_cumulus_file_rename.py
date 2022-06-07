@@ -1,5 +1,5 @@
 from cumulus_file_rename import __version__
-from cumulus_file_rename.cumulus_file_rename import FileRename
+from cumulus_file_rename.cumulus_file_rename import FileRename, replace_last_occurrence
 from unittest.mock import MagicMock
 
 
@@ -31,21 +31,17 @@ test_arguments = {
                 "sync_granule_duration": 3759,
                 "files": [
                     {
-                        "name": "Merged_TOPEX_Jason_OSTM_Jason-3_Cycle_001.V4_2_prevalidated.nc",
-                        "path": "MERGED_TP_J1_OSTM_OST_CYCLES_V42",
-                        "filename": "s3://podaac-dev-cumulus-test-input-v2/MERGED_TP_J1_OSTM_OST_CYCLES_V42/Merged_TOPEX_Jason_OSTM_Jason-3_Cycle_001.V4_2_prevalidated.nc",
-                        "fileStagingDir": "file-staging/dyen-cumulus/MODIS_A-JPL-L2P-v2019.0___2019.0",
-                        "bucket": "podaac-dev-cumulus-test-input-v2",
+                        "fileName": "Merged_TOPEX_Jason_OSTM_Jason-3_Cycle_001.V4_2_prevalidated.nc",
+                        "key": "/MERGED_TP_J1_OSTM_OST_CYCLES_V42/Merged_TOPEX_Jason_OSTM_Jason-3_Cycle_001.V4_2_prevalidated.nc",
+                        "bucket": "my-cumulus-test-input-v2",
                         "size": 18793236,
                         "checksumType": "md5",
                         "type": "data"
                     },
                     {
-                        "name": "Merged_TOPEX_Jason_OSTM_Jason-3_Cycle_001.V4_2.nc_prevalidated.md5",
-                        "path": "MERGED_TP_J1_OSTM_OST_CYCLES_V42",
-                        "filename": "s3://podaac-dev-cumulus-test-input-v2/MERGED_TP_J1_OSTM_OST_CYCLES_V42/Merged_TOPEX_Jason_OSTM_Jason-3_Cycle_001.V4_2.nc_prevalidated.md5",
-                        "fileStagingDir": "file-staging/dyen-cumulus/MODIS_A-JPL-L2P-v2019.0___2019.0",
-                        "bucket": "podaac-dev-cumulus-test-input-v2",
+                        "fileName": "Merged_TOPEX_Jason_OSTM_Jason-3_Cycle_001.V4_2.nc_prevalidated.md5",
+                        "key": "/MERGED_TP_J1_OSTM_OST_CYCLES_V42/Merged_TOPEX_Jason_OSTM_Jason-3_Cycle_001.V4_2.nc_prevalidated.md5",
+                        "bucket": "my-cumulus-test-input-v2",
                         "size": 83,
                         "type": "metadata"
                     }
@@ -64,27 +60,45 @@ def test_version():
 def test_file_rename():
     event = test_arguments
     context = {}
-    FileRename.renameFileOnS3 = MagicMock(return_value=True)
+    FileRename.rename_file_on_s3 = MagicMock(return_value=True)
     process = FileRename(**event)
     output = process.process()
-    assert output['output_files'][0]['name'].find('_prevalidated') == -1
-    assert output['output_granules'][0]['files'][0]['name'].find(
+    assert output['output_files'][0]['fileName'].find('_prevalidated') == -1
+    assert output['output_granules'][0]['files'][0]['fileName'].find(
         '_prevalidated') == -1
+
+def test_replace_last_occurance():
+    event = test_arguments
+    context = {}
+    process = FileRename(**event)
+    # test last occurance is at the trailing
+    output = replace_last_occurrence(
+        'aabbccddaa', 'aa', 'mm')
+    assert output == 'aabbccddmm'
+    # test last occurance is at the middle
+    output = replace_last_occurrence(
+        'aabbccddaaee', 'aa', 'mm')
+    assert output == 'aabbccddmmee'
+    # test the ignore case
+    output = replace_last_occurrence(
+        'aabbccddAaee', 'aa', 'mm', True)
+    assert output == 'aabbccddmmee'
 
 
 def test_replace_prevalidate():
     event = test_arguments
     context = {}
     process = FileRename(**event)
+    process.str_replace_to_empty = '_prevalidated'
     output = process.replace_prevalidate(
         test_arguments['input']['granules'][0]['files'][0])
-    assert output['name'].find('_prevalidated') == -1
-    assert output['filename'].find('_prevalidated') == -1
+    assert output['fileName'].find('_prevalidated') == -1
+    assert output['key'].find('_prevalidated') == -1
 
 
-def test_rreplacePresetStringToEmpty():
+def test_replacePresetStringToEmpty():
     event = test_arguments
     process = FileRename(**event)
-    process.strReplaceToEmpty = '_prevalidated'
-    output = process.replacePresetStringToEmpty('This is not_prevalidated')
+    process.str_replace_to_empty = '_prevalidated'
+    output = process.replace_preset_str_2_empty('This is not_prevalidated')
     assert output.find('_prevalidated') == -1
