@@ -52,6 +52,8 @@ class FileRename(Process):
                                                    '', True)
         file['key'] = replace_last_occurrence(file['key'], self.str_replace_to_empty,
                                               '', True)
+        file['source'] = replace_last_occurrence(file['source'], self.str_replace_to_empty,
+                                              '', True)
         return file
 
     def replace_preset_str_2_empty(self, in_str):
