@@ -50,14 +50,13 @@ class FileRename(Process):
         :param file: file object to process
         :return: new file object
         """
-        if 'fileName' in file :
+        if 'fileName' in file:
             file['fileName'] = replace_last_occurrence(file['fileName'], self.str_replace_to_empty,
                                                        '', True)
         file['key'] = replace_last_occurrence(file['key'], self.str_replace_to_empty,
                                               '', True)
         if 'source' in file:
-            file['source'] = replace_last_occurrence(file['source'], self.str_replace_to_empty,
-                                                  '', True)
+            file['source'] = replace_last_occurrence(file['source'], self.str_replace_to_empty, '', True)
         return file
 
     def replace_preset_str_2_empty(self, in_str):
