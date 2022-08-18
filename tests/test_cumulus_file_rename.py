@@ -33,6 +33,7 @@ test_arguments = {
                     {
                         "fileName": "Merged_TOPEX_Jason_OSTM_Jason-3_Cycle_001.V4_2_prevalidated.nc",
                         "key": "/MERGED_TP_J1_OSTM_OST_CYCLES_V42/Merged_TOPEX_Jason_OSTM_Jason-3_Cycle_001.V4_2_prevalidated.nc",
+                        "source": "s3://my-internal/staging/Merged_TOPEX_Jason_OSTM_Jason-3_Cycle_001.V4_2_prevalidated.nc",
                         "bucket": "my-cumulus-test-input-v2",
                         "size": 18793236,
                         "checksumType": "md5",
@@ -41,6 +42,7 @@ test_arguments = {
                     {
                         "fileName": "Merged_TOPEX_Jason_OSTM_Jason-3_Cycle_001.V4_2.nc_prevalidated.md5",
                         "key": "/MERGED_TP_J1_OSTM_OST_CYCLES_V42/Merged_TOPEX_Jason_OSTM_Jason-3_Cycle_001.V4_2.nc_prevalidated.md5",
+                        "source": "s3://my-internal/staging/Merged_TOPEX_Jason_OSTM_Jason-3_Cycle_001.V4_2.nc_prevalidated.md5",
                         "bucket": "my-cumulus-test-input-v2",
                         "size": 83,
                         "type": "metadata"
@@ -92,8 +94,11 @@ def test_replace_prevalidate():
     process.str_replace_to_empty = '_prevalidated'
     output = process.replace_prevalidate(
         test_arguments['input']['granules'][0]['files'][0])
-    assert output['fileName'].find('_prevalidated') == -1
+    if 'fileName' in output:
+        assert output['fileName'].find('_prevalidated') == -1
     assert output['key'].find('_prevalidated') == -1
+    if 'source' in output:
+        assert output['source'].find('_prevalidated') == -1
 
 
 def test_replacePresetStringToEmpty():

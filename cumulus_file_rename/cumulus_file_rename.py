@@ -45,13 +45,18 @@ class FileRename(Process):
     def replace_prevalidate(self, file):
         """
         replace the member variable str_replace_to_empty to empty string
+        for cumulus 10 and above.  the new file schema says only bucket and key are required field.
+        Hence, we do null test on fileName and source.
         :param file: file object to process
         :return: new file object
         """
-        file['fileName'] = replace_last_occurrence(file['fileName'], self.str_replace_to_empty,
-                                                   '', True)
+        if 'fileName' in file:
+            file['fileName'] = replace_last_occurrence(file['fileName'], self.str_replace_to_empty,
+                                                       '', True)
         file['key'] = replace_last_occurrence(file['key'], self.str_replace_to_empty,
                                               '', True)
+        if 'source' in file:
+            file['source'] = replace_last_occurrence(file['source'], self.str_replace_to_empty, '', True)
         return file
 
     def replace_preset_str_2_empty(self, in_str):
