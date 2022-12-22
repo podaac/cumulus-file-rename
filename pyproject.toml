@@ -1,16 +1,19 @@
 [tool.poetry]
 name = "cumulus-file-rename"
-version = "0.1.0"
+version = "2.0.0-rc.1"
 description = ""
 authors = ["Yen, David (398B-Affiliate) <david.yen@jpl.nasa.gov>"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
-cumulus-process = "^0.9.0"
+cumulus-process = "1.0.0"
 
 [tool.poetry.dev-dependencies]
+pytest-cov = "^3.0.0"
 pytest = "^5.2"
+pylint = "^2.12.2"
+flake8 = "^4.0.1"
 
 [build-system]
-requires = ["poetry>=0.12"]
+requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.masonry.api"

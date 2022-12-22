@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v2.0.0] 
+
+### Added
+### Changed
+- **PODAAC-4360**
+  - code change to be compliant with cumulus 11 message schema
+  - move to public github and construct github action 
+  - enhanced the code so while replacing string, not only targeting fileName, key and source
+    but also consider that only key and bucket are required under new CMA message schema. 
+    i.e. fileName and source could be missing.
+
+### Deprecated
+### Removed
+### Fixed
+### Security
+
 ## [v1.0.0] - 2020-08-31
 
 ### Added
