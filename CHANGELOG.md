@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 ### Changed
+### Deprecated
+### Removed
+### Fixed
+### Security
+
+## [v2.0.0] 
+
+### Added
+### Changed
 - **PODAAC-4360**
   - code change to be compliant with cumulus 11 message schema
   - move to public github and construct github action 
