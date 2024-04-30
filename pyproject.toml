@@ -5,7 +5,7 @@ description = ""
 authors = ["Yen, David (398B-Affiliate) <david.yen@jpl.nasa.gov>"]
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "3.10.14"
 cumulus-process = "1.3.0"
 
 [tool.poetry.dev-dependencies]

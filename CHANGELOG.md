@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 ### Fixed
 - **PODAAC-6185**
-  - upgrade to python 3.10 
+  - upgrade to python 3.10
 ### Security
 
 ## [v2.2.0] 
