@@ -1,12 +1,12 @@
 [tool.poetry]
 name = "cumulus-file-rename"
-version = "2.1.0"
+version = "2.2.0-rc.1"
 description = ""
 authors = ["Yen, David (398B-Affiliate) <david.yen@jpl.nasa.gov>"]
 
 [tool.poetry.dependencies]
-python = "^3.7"
-cumulus-process = "1.0.0"
+python = "^3.9"
+cumulus-process = "1.3.0"
 
 [tool.poetry.dev-dependencies]
 pytest-cov = "^3.0.0"
