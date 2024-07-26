@@ -84,7 +84,7 @@ jobs:
           poetry run flake8 --ignore=E501,W503,W504 cumulus_file_rename
 
       - name: Run Snyk on Python
-        uses: snyk/actions/python-3.9@master
+        uses: snyk/actions/python-3.10@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
