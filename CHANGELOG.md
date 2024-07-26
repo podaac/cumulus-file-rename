@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 ### Changed
+- **PODAAC-6185**
+  - python 3.9 -> 3.10
 ### Deprecated
 ### Removed
 ### Fixed
