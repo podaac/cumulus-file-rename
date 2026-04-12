@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cumulus-file-rename"
-version = "3.1.0a7"
+version = "3.1.0a8"
 description = ""
 authors = ["Yen, David (398B-Affiliate) <david.yen@jpl.nasa.gov>"]
 
