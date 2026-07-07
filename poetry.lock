@@ -13,11 +13,7 @@ files = [
 
 [package.dependencies]
 lazy-object-proxy = ">=1.4.0"
-typing-extensions = {version = ">=4.0.0", markers = "python_version < \"3.11\""}
-wrapt = [
-    {version = ">=1.11,<2", markers = "python_version < \"3.11\""},
-    {version = ">=1.14,<2", markers = "python_version >= \"3.11\""},
-]
+wrapt = {version = ">=1.14,<2", markers = "python_version >= \"3.11\""}
 
 [[package]]
 name = "attrs"
@@ -40,41 +36,41 @@ tests-no-zope = ["attrs[tests-mypy]", "cloudpickle", "hypothesis", "pympler", "p
 
 [[package]]
 name = "boto3"
-version = "1.26.165"
+version = "1.40.76"
 description = "The AWS SDK for Python"
 optional = false
-python-versions = ">= 3.7"
+python-versions = ">=3.9"
 files = [
-    {file = "boto3-1.26.165-py3-none-any.whl", hash = "sha256:fa85b67147c8dc99b6e7c699fc086103f958f9677db934f70659e6e6a72a818c"},
-    {file = "boto3-1.26.165.tar.gz", hash = "sha256:9e7242b9059d937f34264125fecd844cb5e01acce6be093f6c44869fdf7c6e30"},
+    {file = "boto3-1.40.76-py3-none-any.whl", hash = "sha256:8df6df755727be40ad9e309cfda07f9a12c147e17b639430c55d4e4feee8a167"},
+    {file = "boto3-1.40.76.tar.gz", hash = "sha256:16f4cf97f8dd8e0aae015f4dc66219bd7716a91a40d1e2daa0dafa241a4761c5"},
 ]
 
 [package.dependencies]
-botocore = ">=1.29.165,<1.30.0"
+botocore = ">=1.40.76,<1.41.0"
 jmespath = ">=0.7.1,<2.0.0"
-s3transfer = ">=0.6.0,<0.7.0"
+s3transfer = ">=0.14.0,<0.15.0"
 
 [package.extras]
 crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "botocore"
-version = "1.29.165"
+version = "1.40.76"
 description = "Low-level, data-driven core of boto 3."
 optional = false
-python-versions = ">= 3.7"
+python-versions = ">=3.9"
 files = [
-    {file = "botocore-1.29.165-py3-none-any.whl", hash = "sha256:6f35d59e230095aed7cd747604fe248fa384bebb7d09549077892f936a8ca3df"},
-    {file = "botocore-1.29.165.tar.gz", hash = "sha256:988b948be685006b43c4bbd8f5c0cb93e77c66deb70561994e0c5b31b5a67210"},
+    {file = "botocore-1.40.76-py3-none-any.whl", hash = "sha256:fe425d386e48ac64c81cbb4a7181688d813df2e2b4c78b95ebe833c9e868c6f4"},
+    {file = "botocore-1.40.76.tar.gz", hash = "sha256:2b16024d68b29b973005adfb5039adfe9099ebe772d40a90ca89f2e165c495dc"},
 ]
 
 [package.dependencies]
 jmespath = ">=0.7.1,<2.0.0"
 python-dateutil = ">=2.1,<3.0.0"
-urllib3 = ">=1.25.4,<1.27"
+urllib3 = {version = ">=1.25.4,<2.2.0 || >2.2.0,<3", markers = "python_version >= \"3.10\""}
 
 [package.extras]
-crt = ["awscrt (==0.16.9)"]
+crt = ["awscrt (==0.28.4)"]
 
 [[package]]
 name = "colorama"
@@ -148,53 +144,53 @@ files = [
     {file = "coverage-7.6.0.tar.gz", hash = "sha256:289cc803fa1dc901f84701ac10c9ee873619320f2f9aff38794db4a4a0268d51"},
 ]
 
-[package.dependencies]
-tomli = {version = "*", optional = true, markers = "python_full_version <= \"3.11.0a6\" and extra == \"toml\""}
-
 [package.extras]
 toml = ["tomli"]
 
 [[package]]
 name = "cumulus-message-adapter"
-version = "2.0.3.post1"
+version = "2.0.6"
 description = "A command-line interface for preparing and outputting Cumulus Messages for Cumulus Tasks"
 optional = false
-python-versions = "~=3.10"
+python-versions = "~=3.12"
 files = [
-    {file = "cumulus-message-adapter-2.0.3.post1.tar.gz", hash = "sha256:3f02a5d1fe0a299a552213672ff1e6d3ca72330aa158f9bf4669247caab4f741"},
+    {file = "cumulus_message_adapter-2.0.6.tar.gz", hash = "sha256:dc3ec17bb72e37bea716ea11ea23e822fedb656e3117198b3175c2d71627f129"},
 ]
 
 [package.dependencies]
-boto3 = ">=1.26.90,<1.27.0"
-jsonpath-ng = ">=1.4.2,<1.5.0"
-jsonschema = "4.17.3"
+boto3 = ">=1.40,<2.0"
+jsonpath-ng = ">=1.4,<2.0"
+jsonschema = ">=4.17,<5.0"
 
 [[package]]
 name = "cumulus-message-adapter-python"
-version = "2.2.0"
+version = "2.4.0"
 description = "A handler library for cumulus tasks written in python"
 optional = false
-python-versions = "*"
+python-versions = "<4.0,~=3.12"
 files = [
-    {file = "cumulus_message_adapter_python-2.2.0.tar.gz", hash = "sha256:f63f3caa3576e457bf9f078b68271779021dc9526480a3e85e88b3c2a93a45c5"},
+    {file = "cumulus_message_adapter_python-2.4.0.tar.gz", hash = "sha256:d53f8d5d01582ef5960a3c24846de5ea354abf1273f01002825c99f6b050e707"},
 ]
 
 [package.dependencies]
-cumulus-message-adapter = ">=2.0.3,<2.1.0"
+cumulus-message-adapter = ">=2.0.5,<2.1.0"
+
+[package.extras]
+dev = ["mock", "nose2"]
 
 [[package]]
 name = "cumulus-process"
-version = "1.3.0"
+version = "1.7.0"
 description = "Library for creating Cumulus Process tasks in Python"
 optional = false
 python-versions = "*"
 files = [
-    {file = "cumulus_process-1.3.0.tar.gz", hash = "sha256:60423a1d657fcb09b33e640816817363326ac52e4facc0e784bee6b8c210dc8d"},
+    {file = "cumulus_process-1.7.0.tar.gz", hash = "sha256:25a6cc64d3ea191869d367837e39563a7ce1fe0ba9f8c18a663cf77384a12bcf"},
 ]
 
 [package.dependencies]
-boto3 = ">=1.26.90,<1.27.0"
-cumulus-message-adapter-python = ">=2.2.0,<2.3.0"
+boto3 = ">=1.40.29,<1.41.0"
+cumulus-message-adapter-python = ">=2.4.0,<2.5.0"
 dicttoxml = ">=1.7.4,<1.8.0"
 python-json-logger = ">=0.1,<1.0"
 
@@ -234,20 +230,6 @@ files = [
 [package.extras]
 graph = ["objgraph (>=1.7.2)"]
 profile = ["gprof2dot (>=2022.7.29)"]
-
-[[package]]
-name = "exceptiongroup"
-version = "1.2.2"
-description = "Backport of PEP 654 (exception groups)"
-optional = false
-python-versions = ">=3.7"
-files = [
-    {file = "exceptiongroup-1.2.2-py3-none-any.whl", hash = "sha256:3111b9d131c238bec2f8f516e123e14ba243563fb135d3fe885990585aa7795b"},
-    {file = "exceptiongroup-1.2.2.tar.gz", hash = "sha256:47c2edf7c6738fafb49fd34290706d1a1a2f4d1c6df275526b62cbb4aa5393cc"},
-]
-
-[package.extras]
-test = ["pytest (>=6)"]
 
 [[package]]
 name = "flake8"
@@ -482,14 +464,10 @@ files = [
 [package.dependencies]
 astroid = ">=2.15.8,<=2.17.0-dev0"
 colorama = {version = ">=0.4.5", markers = "sys_platform == \"win32\""}
-dill = [
-    {version = ">=0.2", markers = "python_version < \"3.11\""},
-    {version = ">=0.3.6", markers = "python_version >= \"3.11\""},
-]
+dill = {version = ">=0.3.6", markers = "python_version >= \"3.11\""}
 isort = ">=4.2.5,<6"
 mccabe = ">=0.6,<0.8"
 platformdirs = ">=2.2.0"
-tomli = {version = ">=1.1.0", markers = "python_version < \"3.11\""}
 tomlkit = ">=0.10.1"
 
 [package.extras]
@@ -550,11 +528,9 @@ files = [
 
 [package.dependencies]
 colorama = {version = "*", markers = "sys_platform == \"win32\""}
-exceptiongroup = {version = ">=1.0.0rc8", markers = "python_version < \"3.11\""}
 iniconfig = "*"
 packaging = "*"
 pluggy = ">=0.12,<2.0"
-tomli = {version = ">=1.0.0", markers = "python_version < \"3.11\""}
 
 [package.extras]
 testing = ["argcomplete", "attrs (>=19.2.0)", "hypothesis (>=3.56)", "mock", "nose", "pygments (>=2.7.2)", "requests", "setuptools", "xmlschema"]
@@ -603,20 +579,20 @@ files = [
 
 [[package]]
 name = "s3transfer"
-version = "0.6.2"
+version = "0.14.0"
 description = "An Amazon S3 Transfer Manager"
 optional = false
-python-versions = ">= 3.7"
+python-versions = ">=3.9"
 files = [
-    {file = "s3transfer-0.6.2-py3-none-any.whl", hash = "sha256:b014be3a8a2aab98cfe1abc7229cc5a9a0cf05eb9c1f2b86b230fd8df3f78084"},
-    {file = "s3transfer-0.6.2.tar.gz", hash = "sha256:cab66d3380cca3e70939ef2255d01cd8aece6a4907a9528740f668c4b0611861"},
+    {file = "s3transfer-0.14.0-py3-none-any.whl", hash = "sha256:ea3b790c7077558ed1f02a3072fb3cb992bbbd253392f4b6e9e8976941c7d456"},
+    {file = "s3transfer-0.14.0.tar.gz", hash = "sha256:eff12264e7c8b4985074ccce27a3b38a485bb7f7422cc8046fee9be4983e4125"},
 ]
 
 [package.dependencies]
-botocore = ">=1.12.36,<2.0a.0"
+botocore = ">=1.37.4,<2.0a.0"
 
 [package.extras]
-crt = ["botocore[crt] (>=1.20.29,<2.0a.0)"]
+crt = ["botocore[crt] (>=1.37.4,<2.0a.0)"]
 
 [[package]]
 name = "six"
@@ -630,17 +606,6 @@ files = [
 ]
 
 [[package]]
-name = "tomli"
-version = "2.0.1"
-description = "A lil' TOML parser"
-optional = false
-python-versions = ">=3.7"
-files = [
-    {file = "tomli-2.0.1-py3-none-any.whl", hash = "sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc"},
-    {file = "tomli-2.0.1.tar.gz", hash = "sha256:de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f"},
-]
-
-[[package]]
 name = "tomlkit"
 version = "0.13.0"
 description = "Style preserving TOML library"
@@ -649,17 +614,6 @@ python-versions = ">=3.8"
 files = [
     {file = "tomlkit-0.13.0-py3-none-any.whl", hash = "sha256:7075d3042d03b80f603482d69bf0c8f345c2b30e41699fd8883227f89972b264"},
     {file = "tomlkit-0.13.0.tar.gz", hash = "sha256:08ad192699734149f5b97b45f1f18dad7eb1b6d16bc72ad0c2335772650d7b72"},
-]
-
-[[package]]
-name = "typing-extensions"
-version = "4.12.2"
-description = "Backported and Experimental Type Hints for Python 3.8+"
-optional = false
-python-versions = ">=3.8"
-files = [
-    {file = "typing_extensions-4.12.2-py3-none-any.whl", hash = "sha256:04e5ca0351e0f3f85c6853954072df659d0d13fac324d0072316b67d7794700d"},
-    {file = "typing_extensions-4.12.2.tar.gz", hash = "sha256:1a7ead55c7e559dd4dee8856e3a88b41225abfe1ce8df57b7c13915fe121ffb8"},
 ]
 
 [[package]]
@@ -759,5 +713,5 @@ files = [
 
 [metadata]
 lock-version = "2.0"
-python-versions = "^3.10"
-content-hash = "ca882504ecf66759add7f9823f431f2cce9150fd58f8b9b08f9fc9ce188185f9"
+python-versions = "^3.12"
+content-hash = "c72345527103c7e45f2a46b9d9287940941f8bc54daf59adb8a78b954373331c"
